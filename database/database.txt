@@ -1,0 +1,50 @@
+CREATE TABLE account (
+accountID NUMBER(8),
+accountName VARCHAR2(50),
+accountPass VARCHAR2(50),
+accountRole VARCHAR2(50),
+accountLvl NUMBER(8),
+accountExp NUMBER(8),
+CONSTRAINT account_accountID_pk PRIMARY KEY(accountID)
+);
+
+CREATE TABLE history (
+historyID NUMBER(8),
+accountID NUMBER(8),
+historyDate DATE,
+historyPath VARCHAR2(50),
+CONSTRAINT history_historyID_pk PRIMARY KEY(historyID),
+CONSTRAINT history_accountID_fk FOREIGN KEY(userID) REFERENCES account(accountID)
+);
+
+CREATE TABLE course (
+courseID NUMBER(8),
+courseName VARCHAR2(50),
+CONSTRAINT course_courseID_pk PRIMARY KEY(courseID)
+);
+
+CREATE TABLE chapter (
+chapterID NUMBER(8),
+courseID NUMBER(8),
+chapterName VARCHAR2(50),
+chapterNotePath VARCHAR2(100),
+CONSTRAINT chapter_chapterID_pk PRIMARY KEY(chapterID),
+CONSTRAINT chapter_courseID_fk FOREIGN KEY(courseID) REFERENCES course(courseID)
+);
+
+CREATE TABLE question (
+questionID NUMBER(8),
+courseID NUMBER(8),
+chapterID NUMBER(8),
+questionTitle VARCHAR2(50),
+questionAsk VARCHAR2(500),
+questionOpt1 VARCHAR2(100),
+questionOpt2 VARCHAR2(100),
+questionOpt3 VARCHAR2(100),
+questionOpt4 VARCHAR2(100),
+questionAns VARCHAR2(100),
+CONSTRAINT question_questionID_pk PRIMARY KEY(questionID),
+CONSTRAINT question_courseID_fk FOREIGN KEY(courseID) REFERENCES course(courseID),
+CONSTRAINT question_chapterID_fk FOREIGN KEY(chapterID) REFERENCES chapter(chapterID),
+);
+
